@@ -1,0 +1,26 @@
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 120
+forced_separate = "starlette_opentracing"
+skip = ["src", "venv", "Starlette_OpenTracing.egg-info"]
+default_section = "THIRDPARTY"
+
+[tool.black]
+line-length = 120
+target-version = ["py37"]
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | venv
+    | src
+  )/
+)
+'''

@@ -1,5 +1,3 @@
-
 def test_view_ok(client):
-    # Do a request
     response = client.get("/foo/")
-
+    assert response.status_code == 200

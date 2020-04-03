@@ -3,7 +3,8 @@ from urllib.parse import urlunparse
 import opentracing
 from opentracing.ext import tags
 
-#Todo: check iw we can inherit from BaseHTTPMiddleware and/or opentracing.Tracer
+
+# Todo: check if we can inherit from BaseHTTPMiddleware and/or opentracing.Tracer
 # For now we use ASGI interface
 class StarletteTracingMiddleWare:
     def __init__(self, app):
@@ -18,15 +19,6 @@ class StarletteTracingMiddleWare:
             if scope["type"] in {"http", "websocket"}:
                 span.set_tag(tags.HTTP_METHOD, scope["method"])
                 host, port = scope["server"]
-                url = urlunparse(
-                    (
-                        scope["scheme"],
-                        f"{host}:{port}",
-                        scope["path"],
-                        "",
-                        scope["query_string"],
-                        "",
-                    )
-                )
+                url = urlunparse((scope["scheme"], f"{host}:{port}", scope["path"], "", scope["query_string"], "",))
                 span.set_tag(tags.HTTP_URL, url)
             await self.app(scope, receive, send)
