@@ -4,8 +4,6 @@ python:
   - '3.6'
   - '3.7'
   - '3.8'
-  - 'pypy'
-  - 'pypy3.5'
 
 stages:
   - lint
