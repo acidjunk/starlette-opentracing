@@ -2,14 +2,20 @@
 Starlette-OpenTracing
 #####################
 
-OpenTracing support for Starlette and FastApi. Inspired by: `python flask`_
+`OpenTracing`_ support for Starlette and FastApi. Inspired by: `Flask-OpenTracing`_
+OpenTracing implementations exist for major distributed tracing systems and can be bound or swapped with a one-line
+configuration change. This package uses the `OpenTracing API for Python`_ to implement it's functionality.
 
 WORK IN PROGRESS. Not ready for production!
 
-OpenTracing implementations exist for major distributed tracing systems and can be bound or swapped with a one-line configuration change.
+The package will implement: Starlette middleware that can be used to add Opentracing support to all incoming requests.
 
-.. _The OpenTracing Project: http://opentracing.io/
-.. _python flask: https://github.com/opentracing-contrib/python-flask
+It will, when ready, also contain 2 decorators that can be used to decorate routes: one to setup tracing without
+the middleware and one to add extra tags/spans for an endpoint.
+
+.. _OpenTracing: http://opentracing.io/
+.. _OpenTracing API for Python: https://github.com/opentracing/opentracing-python
+.. _Flask-OpenTracing: https://github.com/opentracing-contrib/python-flask
 
 Installation
 ============
