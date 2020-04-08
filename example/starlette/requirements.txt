@@ -1,0 +1,6 @@
+jaeger-client
+opentracing_instrumentation
+requests
+starlette
+uvicorn
+-e git://github.com/acidjunk/starlette-opentracing.git#egg=Starlette-OpenTracing
