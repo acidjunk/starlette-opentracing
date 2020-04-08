@@ -1,6 +1,6 @@
-# Starlette opentracing example
+# FastAPI opentracing example
 
-An example of using the middleware with Starlette and instrumentation for some commonly used python libs for DB access
+An example of using the middleware with FastAPI and instrumentation for some commonly used python libs for DB access
 and external http requests. Using the `install_all_patches()` method from `opentracing_instrumentation` package gives
 you a way to trace your MySQLdb, SQLAlchemy, Redis queries and more without writing boilerplate code.
 
@@ -22,7 +22,7 @@ docker run -d -e \
 
 When `jaeger` is up and running you can access it at: http://localhost:16686/search
 
-Now install the requirements and start Starlette:
+Now install the requirements and start FastAPI:
 
 ```bash
 python3 -m venv example

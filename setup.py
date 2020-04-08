@@ -1,11 +1,11 @@
-from setuptools import setup
-
 """
 Starlette-OpenTracing
 ---------------------
 
 This extension provides simple integration of OpenTracing in Starlette applications.
 """
+from setuptools import setup
+
 version = open("VERSION").read().strip()
 setup(
     name="Starlette-OpenTracing",
@@ -24,7 +24,17 @@ setup(
     platforms="any",
     install_requires=["starlette", "opentracing>=2.0,<3"],
     extras_require={
-        "tests": ["black", "flake8", "flake8-quotes", "isort", "mock", "pytest", "pytest-cov", "requests"],
+        "tests": [
+            "black",
+            "flake8",
+            "flake8-quotes",
+            "isort",
+            "mock",
+            "pre-commit",
+            "pytest",
+            "pytest-cov",
+            "requests",
+        ],
     },
     classifiers=[
         "Environment :: Web Environment",

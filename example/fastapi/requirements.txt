@@ -2,5 +2,5 @@ fastapi
 jaeger-client
 opentracing_instrumentation
 requests
-uvicorn
 -e git://github.com/acidjunk/starlette-opentracing.git#egg=Starlette-OpenTracing
+uvicorn

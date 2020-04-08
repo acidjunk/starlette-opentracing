@@ -1,5 +1,5 @@
 # add dependencies in setup.py
-  
--r requirements.txt
+
 
 -e .[tests]
+-r requirements.txt

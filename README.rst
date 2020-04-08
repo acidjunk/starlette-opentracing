@@ -22,7 +22,7 @@ Installation
 
 Run the following command:
 
-.. code-block:: 
+.. code-block::
 
     $ pip install Starlette-Opentracing
 

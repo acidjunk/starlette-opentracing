@@ -8,15 +8,32 @@ python:
 stages:
   - lint
   - test
+  - name: deploy
+    if: tag is present
 
 matrix:
   include:
     - stage: lint
       name: flake8
       python: '3.7'
+    - stage: deploy
+      name: Deploy to PyPI
+      python: '3.7'
+      install: skip
+      script: skip
 
 install:
   - pip install tox-travis
 
 script:
   - tox
+
+deploy:
+  provider: pypi
+  distributions: sdist
+  user: '__token__'
+  password:
+    secure: 'TODO'
+  on:
+    condition: $TRAVIS_BUILD_STAGE_NAME = Deploy
+    tags: true

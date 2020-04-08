@@ -1,6 +1,3 @@
-from urllib.parse import urlunparse
-
-import opentracing
 from opentracing.ext import tags
 
 
