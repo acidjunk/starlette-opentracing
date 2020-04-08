@@ -1,4 +1,5 @@
 import pytest
+from opentracing.mocktracer import MockTracer
 from starlette.applications import Starlette
 from starlette.responses import PlainTextResponse
 from starlette.testclient import TestClient
@@ -10,7 +11,7 @@ from starlette_opentracing import StarletteTracingMiddleWare
 @pytest.fixture()
 def app():
     app_ = Starlette()
-    app_.add_middleware(StarletteTracingMiddleWare)
+    app_.add_middleware(StarletteTracingMiddleWare, tracer=MockTracer())
 
     @app_.route("/foo/")
     def foo(request):
