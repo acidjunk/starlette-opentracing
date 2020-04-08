@@ -2,6 +2,8 @@
 Starlette-OpenTracing
 #####################
 
+|Maintenance yes| |PyPI pyversions| |Build info|
+
 `OpenTracing`_ support for Starlette and FastApi. Inspired by: `Flask-OpenTracing`_
 OpenTracing implementations exist for major distributed tracing systems and can be bound or swapped with a one-line
 configuration change. This package uses the `OpenTracing API for Python`_ to implement it's functionality.
@@ -16,6 +18,14 @@ the middleware and one to add extra tags/spans for an endpoint.
 .. _OpenTracing: http://opentracing.io/
 .. _OpenTracing API for Python: https://github.com/opentracing/opentracing-python
 .. _Flask-OpenTracing: https://github.com/opentracing-contrib/python-flask
+.. |Maintenance yes| image:: https://img.shields.io/badge/Maintained%3F-yes-green.svg
+   :target: https://github.com/acidjunk/starlette-opentracing/graphs/commit-activity
+.. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/ansicolortags.svg
+   :target: https://pypi.python.org/pypi/ansicolortags/
+.. |Build info| image:: https://travis-ci.com/acidjunk/starlette-opentracing.svg?branch=master
+    :target: https://travis-ci.com/acidjunk/starlette-opentracing
+
+
 
 Installation
 ============
