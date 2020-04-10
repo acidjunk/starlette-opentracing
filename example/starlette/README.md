@@ -31,7 +31,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-When you now access these URL's, you should see the traces in jaeger:
+When you access the following URL's, you should see the traces in the Jaeger WebGUI:
 
 http://localhost:8000/
 
