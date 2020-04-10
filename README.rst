@@ -42,8 +42,12 @@ Todo
 
 Deploy
 ======
+
+Increase version in VERSION
+
 .. code-block::
 
+    git commit -a -m "bumped version to 0.0.3"
     git tag -a v0.0.3 -m "version 0.0.3"
     git push
     git push origin --tags
