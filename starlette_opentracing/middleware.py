@@ -27,4 +27,3 @@ class StarletteTracingMiddleWare:
                 )
                 span.set_tag(tags.HTTP_URL, url)
             await self.app(scope, receive, send)
-            tracing_scope.close()
