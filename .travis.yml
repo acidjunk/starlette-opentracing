@@ -30,5 +30,5 @@ deploy:
   password:
     secure: mlYcwOLpKwpvxysQxDCbdgY0mQURJnG56SeLuLYhIEfy9ccCftio6UcxDWesnx3qZ6+w/elePkeEDcx4a4wjFBwFgB57ze4on+h9evpnWSH51U7sG4kGqN/ID0pwMbgH3n5HEgavTxk1g3XzKtgbuODycSP8RB8dTmcFKj+v6LpFD0DsKWLLHDFfjsjaRXLeBBULjLYaAKN94lr8kT9MoN/hXWNJMLmeRLiODjr6Hqdl0/qCRJQqggC9eeBkMuJ3t7368eyqmLZpQoiwLKbL88tsf3+LlUrDObxGMeHUr8yCzrH/ofzN21CvwW0RU/oCvkdz95E16LPpj4nlADzeadHTILNQTbf32q7yXHv18sRSDJooUeWLrNsN7VZM4zZTxHmowEIT/yaPp9Qylv9dhzzHeME8ijIGVspjm1E5jxrCPRHjnOpaXjM62C3LYWnYPAniiuSI+Vz1dHAPWNFeQefWDfOJQ7OOZ0zMRRofCrZXg3yLuKuYfd2jhpfZtM5TQEoO0BVUXUY2PHQxNFLPs/tMMZArGlQnlCleTHKS76aVlyvljha6Vidg/yW8b1EWPZlrseQ3es0ZAcbOxjCDw4ncqII5O471XFjju0/8GiHzNhGaMzVCZC1URzb1Ijd9dcHDk2eNWaFwxxKZk3kz/MswLosH5UMSwd+nUZGzFL4=
   on:
-    condition: "$TRAVIS_BUILD_STAGE_NAME = Deploy"
+#    condition: "$TRAVIS_BUILD_STAGE_NAME = Deploy"
     tags: true

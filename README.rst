@@ -40,7 +40,16 @@ Usage
 =====
 Todo
 
+Deploy
+======
+.. code-block::
 
+    git tag -a v0.0.3 -m "version 0.0.3"
+    git push
+    git push origin --tags
+
+License info
+============
 
 Copyright 2020 R. Dohmen <acidjunk@gmail.com>
 
