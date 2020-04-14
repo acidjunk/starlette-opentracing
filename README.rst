@@ -49,8 +49,7 @@ Increase version in VERSION
 
     git commit -a -m "bumped version to 0.0.3"
     git tag -a v0.0.3 -m "version 0.0.3"
-    git push
-    git push origin --tags
+    git push --follow-tags
 
 License info
 ============
