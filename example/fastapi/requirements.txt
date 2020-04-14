@@ -3,4 +3,5 @@ jaeger-client
 opentracing_instrumentation
 requests
 -e git://github.com/acidjunk/starlette-opentracing.git#egg=Starlette-OpenTracing
+tornado==5.1.1  # pin to last release for 5, implicit install of 6 gives errors
 uvicorn
