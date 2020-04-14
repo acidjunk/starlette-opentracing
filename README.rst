@@ -20,11 +20,10 @@ the middleware and one to add extra tags/spans for an endpoint.
 .. _Flask-OpenTracing: https://github.com/opentracing-contrib/python-flask
 .. |Maintenance yes| image:: https://img.shields.io/badge/Maintained%3F-yes-green.svg
    :target: https://github.com/acidjunk/starlette-opentracing/graphs/commit-activity
-.. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/ansicolortags.svg
-   :target: https://pypi.python.org/pypi/ansicolortags/
+.. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/Starlette-Opentracing.svg
+   :target: https://pypi.python.org/pypi/Starlette-Opentracing/
 .. |Build info| image:: https://travis-ci.com/acidjunk/starlette-opentracing.svg?branch=master
     :target: https://travis-ci.com/acidjunk/starlette-opentracing
-
 
 
 Installation
@@ -38,7 +37,8 @@ Run the following command:
 
 Usage
 =====
-Todo
+
+See the examples for FastAPI and Starlette in `examples/`
 
 Deploy
 ======
