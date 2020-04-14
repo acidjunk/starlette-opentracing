@@ -2,6 +2,7 @@ import requests
 import uvicorn
 from fastapi import FastAPI
 from jaeger_client import Config as jaeger_config
+from opentracing.scope_managers.contextvars import ContextVarsScopeManager
 from opentracing_instrumentation.client_hooks import install_all_patches
 
 from starlette_opentracing import StarletteTracingMiddleWare
@@ -31,6 +32,7 @@ opentracing_config = jaeger_config(
         "logging": False,
         "local_agent": {"reporting_host": "localhost"},
     },
+    scope_manager=ContextVarsScopeManager(),
     service_name="FastAPI tracer example",
 )
 jaeger_tracer = opentracing_config.initialize_tracer()

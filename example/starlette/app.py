@@ -1,6 +1,7 @@
 import requests
 import uvicorn
 from jaeger_client import Config as jaeger_config
+from opentracing.scope_managers.contextvars import ContextVarsScopeManager
 from opentracing_instrumentation.client_hooks import install_all_patches
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse
@@ -39,6 +40,7 @@ opentracing_config = jaeger_config(
         "logging": False,
         "local_agent": {"reporting_host": "localhost"},
     },
+    scope_manager=ContextVarsScopeManager(),
     service_name="Starlette tracer example",
 )
 jaeger_tracer = opentracing_config.initialize_tracer()
