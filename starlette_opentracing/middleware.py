@@ -1,5 +1,6 @@
 from urllib.parse import urlunparse
 
+import opentracing
 from opentracing.ext import tags
 
 
@@ -21,7 +22,19 @@ class StarletteTracingMiddleWare:
         if scope["type"] not in ["http", "websocket"]:
             return
 
-        with self._tracer.start_active_span(str(scope["path"]), finish_on_close=True) as tracing_scope:
+        # Try to find and existing context in the provided request headers
+        span_ctx = None
+        headers = {}
+        for k, v in scope["headers"]:
+            headers[k.lower().decode("utf-8")] = v.decode("utf-8")
+        try:
+            span_ctx = self._tracer.extract(opentracing.Format.HTTP_HEADERS, headers)
+        except (opentracing.InvalidCarrierException, opentracing.SpanContextCorruptedException):
+            pass
+
+        with self._tracer.start_active_span(
+            str(scope["path"]), child_of=span_ctx, finish_on_close=True
+        ) as tracing_scope:
             span = tracing_scope.span
             span.set_tag(tags.COMPONENT, "asgi")
             span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)

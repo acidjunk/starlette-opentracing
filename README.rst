@@ -11,13 +11,14 @@ configuration change. This package uses the `OpenTracing API for Python`_ to imp
 WORK IN PROGRESS. Not ready for production!
 
 The package will implement: Starlette middleware that can be used to add Opentracing support to all incoming requests.
+It also support the usage of a customer root span by looking at extra headers for incoming request.
 
-It will, when ready, also contain 2 decorators that can be used to decorate routes: one to setup tracing without
-the middleware and one to add extra tags/spans for an endpoint.
+This work was funded by `SURFnet`_.
 
 .. _OpenTracing: http://opentracing.io/
 .. _OpenTracing API for Python: https://github.com/opentracing/opentracing-python
 .. _Flask-OpenTracing: https://github.com/opentracing-contrib/python-flask
+.. _SURFnet: https://www.surf.nl/en
 .. |Maintenance yes| image:: https://img.shields.io/badge/Maintained%3F-yes-green.svg
    :target: https://github.com/acidjunk/starlette-opentracing/graphs/commit-activity
 .. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/Starlette-Opentracing.svg

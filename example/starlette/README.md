@@ -38,3 +38,10 @@ http://localhost:8000/
 http://localhost:8000/external-api
 
 http://localhost:8000/test-404
+
+You can also use the client.py to setup a tracing session before doing a request: the middleware will add the other
+request to the existing span:
+
+```
+python app.py
+```
