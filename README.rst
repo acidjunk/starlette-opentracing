@@ -21,7 +21,7 @@ This work was funded by `SURFnet`_.
 .. _OpenTracing API for Python: https://github.com/opentracing/opentracing-python
 .. _Flask-OpenTracing: https://github.com/opentracing-contrib/python-flask
 .. _SURFnet: https://www.surf.nl/en
-.. |Screenshot| image:: screenshot.png
+.. |Screenshot| image:: https://github.com/acidjunk/Starlette-Opentracing/raw/master/screenshot.png
 .. |Maintenance yes| image:: https://img.shields.io/badge/Maintained%3F-yes-green.svg
    :target: https://github.com/acidjunk/starlette-opentracing/graphs/commit-activity
 .. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/Starlette-Opentracing.svg
