@@ -14,11 +14,7 @@ class StarletteTracingMiddleWare:
         self.app = app
 
     async def __call__(self, scope, receive, send):
-        # Skipping init for middle ware lifespan scope
-        if scope["type"] == "lifespan":
-            return
-
-        # Skipping NON http events
+        # Skipping NON http and ASGI lifespan events
         if scope["type"] not in ["http", "websocket"]:
             return
 
@@ -38,12 +34,11 @@ class StarletteTracingMiddleWare:
             span = tracing_scope.span
             span.set_tag(tags.COMPONENT, "asgi")
             span.set_tag(tags.SPAN_KIND, tags.SPAN_KIND_RPC_SERVER)
-            if scope["type"] in {"http", "websocket"}:
-                span.set_tag(tags.HTTP_METHOD, scope["method"])
-                host, port = scope["server"]
-                url = urlunparse(
-                    (str(scope["scheme"]), f"{host}:{port}", str(scope["path"]), "", str(scope["query_string"]), "",)
-                )
-                span.set_tag(tags.HTTP_URL, url)
+            span.set_tag(tags.HTTP_METHOD, scope["method"])
+            host, port = scope["server"]
+            url = urlunparse(
+                (str(scope["scheme"]), f"{host}:{port}", str(scope["path"]), "", str(scope["query_string"]), "",)
+            )
+            span.set_tag(tags.HTTP_URL, url)
             await self.app(scope, receive, send)
             return
