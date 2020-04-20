@@ -25,8 +25,9 @@ setup(
     install_requires=["starlette", "opentracing>=2.0,<3"],
     extras_require={
         "tests": [
+            "aiocontextvars",
             "black",
-            "aiocontextvars" "flake8",
+            "flake8",
             "flake8-quotes",
             "isort",
             "mock",
