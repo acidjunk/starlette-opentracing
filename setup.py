@@ -32,7 +32,7 @@ setup(
             "mock",
             "pre-commit",
             "pytest",
-            "pytest-cov",
+            "pytest-asyncio" "pytest-cov",
             "requests",
             "coveralls",
         ],

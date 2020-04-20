@@ -2,7 +2,7 @@
 Starlette-OpenTracing
 #####################
 
-|Maintenance yes| |PyPI pyversions| |Build info| |Coverage status|
+|Build info| |PyPI pyversions| |Maintenance yes| |Coverage status|
 
 `OpenTracing`_ support for Starlette and FastApi. Inspired by: `Flask-OpenTracing`_
 OpenTracing implementations exist for major distributed tracing systems and can be bound or swapped with a one-line
