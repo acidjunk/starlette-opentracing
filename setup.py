@@ -34,6 +34,7 @@ setup(
             "pytest",
             "pytest-cov",
             "requests",
+            "coveralls",
         ],
     },
     classifiers=[
