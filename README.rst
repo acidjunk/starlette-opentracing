@@ -8,8 +8,6 @@ Starlette-OpenTracing
 OpenTracing implementations exist for major distributed tracing systems and can be bound or swapped with a one-line
 configuration change. This package uses the `OpenTracing API for Python`_ to implement it's functionality.
 
-WORK IN PROGRESS. Not ready for production!
-
 The package will implement: Starlette middleware that can be used to add Opentracing support to all incoming requests.
 It also supports the usage of a customer root span by looking at extra headers for incoming request:
 
