@@ -2,7 +2,7 @@
 Starlette-OpenTracing
 #####################
 
-|Build info| |PyPI pyversions| |Maintenance yes| |Coverage status|
+|Build info| |PyPi info| |PyPI pyversions| |Maintenance yes| |Coverage status|
 
 `OpenTracing`_ support for Starlette and FastApi. Inspired by: `Flask-OpenTracing`_
 OpenTracing implementations exist for major distributed tracing systems and can be bound or swapped with a one-line
@@ -30,7 +30,8 @@ This work was funded by `SURFnet`_.
     :target: https://travis-ci.com/acidjunk/starlette-opentracing
 .. |Coverage status| image:: https://coveralls.io/repos/github/acidjunk/starlette-opentracing/badge.svg?branch=master
     :target: https://coveralls.io/github/acidjunk/starlette-opentracing?branch=master
-
+.. |PyPi info| image:: https://img.shields.io/pypi/v/Starlette-Opentracing.svg
+    :target: https://pypi.python.org/pypi/Starlette-Opentracing
 
 Installation
 ============

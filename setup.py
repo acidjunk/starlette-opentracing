@@ -26,7 +26,7 @@ setup(
     extras_require={
         "tests": [
             "black",
-            "flake8",
+            "aiocontextvars" "flake8",
             "flake8-quotes",
             "isort",
             "mock",
