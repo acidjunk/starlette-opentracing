@@ -1,4 +1,9 @@
+from unittest import mock
+
+import opentracing
+import pytest
 from opentracing.mocktracer.tracer import MockTracer
+from opentracing.scope_managers.contextvars import ContextVarsScopeManager
 from starlette.applications import Starlette
 from starlette.responses import PlainTextResponse
 from starlette.testclient import TestClient
@@ -8,8 +13,8 @@ from starlette_opentracing.middleware import StarletteTracingMiddleWare
 
 def test_tracer():
     app = Starlette()
-    tracer = MockTracer()
-    app.add_middleware(StarletteTracingMiddleWare, tracer=tracer)
+    mocked_tracer = MockTracer()
+    app.add_middleware(StarletteTracingMiddleWare, tracer=mocked_tracer)
 
     @app.route("/foo/")
     def foo(request):
@@ -17,27 +22,49 @@ def test_tracer():
 
     client = TestClient(app)
     client.get("/foo")
-    spans = tracer.finished_spans()
+    spans = mocked_tracer.finished_spans()
     assert len(spans) == 2
     urls = [span.tags.get("http.url") for span in spans]
     assert "http://testserver:80/foo?b''" in urls
     # Todo: more asserts
 
 
-def test_tracer_with_existing_context():
+def test_tracer_with_extra_context():
     app = Starlette()
-    tracer = MockTracer()
-    app.add_middleware(StarletteTracingMiddleWare, tracer=tracer)
+    mocked_tracer = MockTracer(scope_manager=ContextVarsScopeManager())
+
+    app.add_middleware(StarletteTracingMiddleWare, tracer=mocked_tracer)
 
     @app.route("/foo/")
     def foo(request):
         return PlainTextResponse("Foo")
 
+    external_tracer = MockTracer(scope_manager=ContextVarsScopeManager())
+    external_tracer.start_active_span("EXTERNAL")
+
+    # Prepare headers
+    headers = {}
+    external_tracer.inject(external_tracer.active_span.context, opentracing.Format.TEXT_MAP, headers)
     client = TestClient(app)
-    client.get("/foo", headers={"Uber-Trace-Id": "floemp"})
-    spans = tracer.finished_spans()
+    client.get("/foo", headers=headers)
+
+    external_tracer.active_span.finish()
+
+    spans = mocked_tracer.finished_spans()
+    assert len(spans) == 2
     urls = [span.tags.get("http.url") for span in spans]
     assert "http://testserver:80/foo?b''" in urls
-    # Todo: fix test that also hits the extra header part in the middleware
-    # assert len(spans) == 3
-    # Todo: more asserts
+
+    # Todo: more asserts; still not sure if we should have 3 finished spans in the external tracer
+    spans = external_tracer.finished_spans()
+    assert len(spans) == 1
+
+
+@pytest.mark.asyncio
+async def test_middleware_skip_asgi_types():
+    app = Starlette()
+    tracer = MockTracer()
+    middleware = StarletteTracingMiddleWare(app, tracer)
+
+    with mock.patch("starlette_opentracing.middleware.StarletteTracingMiddleWare", return_value={}):
+        await middleware({"type": "floemp"}, receive=(), send=())
