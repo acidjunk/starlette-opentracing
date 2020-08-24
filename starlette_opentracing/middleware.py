@@ -16,6 +16,7 @@ class StarletteTracingMiddleWare:
     async def __call__(self, scope, receive, send):
         # Skipping NON http and ASGI lifespan events
         if scope["type"] not in ["http", "websocket"]:
+            await self.app(scope, receive, send)
             return
 
         # Try to find and existing context in the provided request headers
