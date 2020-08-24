@@ -1,34 +1,29 @@
 from urllib.parse import urlunparse
 
 import opentracing
+from opentracing import InvalidCarrierException, SpanContextCorruptedException
 from opentracing.ext import tags
+from starlette.middleware.base import BaseHTTPMiddleware
 
 
-# For now we use ASGI interface
-# Todo: check if we can inherit from BaseHTTPMiddleware and/or opentracing.Tracer
-class StarletteTracingMiddleWare:
+class StarletteTracingMiddleWare(BaseHTTPMiddleware):
     def __init__(self, app, tracer):
         # Todo: add choice between global tracer and tracer that is already configured
-        # self.tracer = opentracing.global_tracer()
+        super().__init__(app)
         self._tracer = tracer
-        self.app = app
 
-    async def __call__(self, scope, receive, send):
-        # Skipping NON http and ASGI lifespan events
-        if scope["type"] not in ["http", "websocket"]:
-            await self.app(scope, receive, send)
-            return
-
-        # Try to find and existing context in the provided request headers
+    async def dispatch(self, request, call_next):
         span_ctx = None
         headers = {}
-        for k, v in scope["headers"]:
-            headers[k.lower().decode("utf-8")] = v.decode("utf-8")
+        for k, v in request.headers.items():
+            headers[k.lower()] = v
+
         try:
             span_ctx = self._tracer.extract(opentracing.Format.HTTP_HEADERS, headers)
-        except (opentracing.InvalidCarrierException, opentracing.SpanContextCorruptedException):
+        except (InvalidCarrierException, SpanContextCorruptedException):
             pass
 
+        scope = request.scope
         with self._tracer.start_active_span(
             str(scope["path"]), child_of=span_ctx, finish_on_close=True
         ) as tracing_scope:
@@ -41,5 +36,6 @@ class StarletteTracingMiddleWare:
                 (str(scope["scheme"]), f"{host}:{port}", str(scope["path"]), "", str(scope["query_string"]), "",)
             )
             span.set_tag(tags.HTTP_URL, url)
-            await self.app(scope, receive, send)
-            return
+
+            response = await call_next(request)
+        return response

@@ -1,7 +1,4 @@
-from unittest import mock
-
 import opentracing
-import pytest
 from opentracing.mocktracer.tracer import MockTracer
 from opentracing.scope_managers.contextvars import ContextVarsScopeManager
 from starlette.applications import Starlette
@@ -58,13 +55,3 @@ def test_tracer_with_extra_context():
     # Todo: more asserts; still not sure if we should have 3 finished spans in the external tracer
     spans = external_tracer.finished_spans()
     assert len(spans) == 1
-
-
-@pytest.mark.asyncio
-async def test_middleware_skip_asgi_types():
-    app = Starlette()
-    tracer = MockTracer()
-    middleware = StarletteTracingMiddleWare(app, tracer)
-
-    with mock.patch("starlette_opentracing.middleware.StarletteTracingMiddleWare", return_value={}):
-        await middleware({"type": "floemp"}, receive=(), send=())
