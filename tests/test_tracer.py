@@ -72,5 +72,4 @@ def test_tracer_uses_path_templates_for_operation_names():
     client.get("/foo/MyFoo")
     spans = mocked_tracer.finished_spans()
     assert len(spans) == 1
-    urls = [span.tags.get("http.url") for span in spans]
     assert spans[0].operation_name == "GET /foo/{foo_id}"

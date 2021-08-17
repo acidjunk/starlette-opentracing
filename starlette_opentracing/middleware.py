@@ -20,9 +20,9 @@ class StarletteTracingMiddleWare(BaseHTTPMiddleware):
         urls = [
             route
             for route in request.scope["router"].routes
-            if hasattr(route, "endpoint")
-            and "endpoint" in request.scope
-            and route.endpoint == request.scope["endpoint"]
+            if hasattr(route, "endpoint") and
+            "endpoint" in request.scope and
+            route.endpoint == request.scope["endpoint"]
         ]
         template = urls[0].path if len(urls) > 0 else "UNKNOWN"
         method_path = method + " " + template
