@@ -17,13 +17,15 @@ class StarletteTracingMiddleWare(BaseHTTPMiddleware):
     def get_template(self, request: Request) -> str:
         """Get the template for the route endpoint."""
         method = request.method
-        urls = [
-            route
-            for route in request.scope["router"].routes
-            if hasattr(route, "endpoint") and
-            "endpoint" in request.scope and
-            route.endpoint == request.scope["endpoint"]
-        ]
+        if "endpoint" in request.scope:
+            urls = [
+                route
+                for route in request.scope["router"].routes
+                if hasattr(route, "endpoint") and route.endpoint == request.scope["endpoint"]
+            ]
+        else:
+            urls = []
+
         template = urls[0].path if len(urls) > 0 else "UNKNOWN"
         method_path = method + " " + template
         return method_path
