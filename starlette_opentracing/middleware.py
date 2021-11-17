@@ -4,13 +4,31 @@ import opentracing
 from opentracing import InvalidCarrierException, SpanContextCorruptedException
 from opentracing.ext import tags
 from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import Request
 
 
 class StarletteTracingMiddleWare(BaseHTTPMiddleware):
-    def __init__(self, app, tracer):
+    def __init__(self, app, tracer, use_template: bool = False):
         # Todo: add choice between global tracer and tracer that is already configured
         super().__init__(app)
         self._tracer = tracer
+        self.use_template = use_template
+
+    def get_template(self, request: Request) -> str:
+        """Get the template for the route endpoint."""
+        method = request.method
+        if "endpoint" in request.scope:
+            urls = [
+                route
+                for route in request.scope["router"].routes
+                if hasattr(route, "endpoint") and route.endpoint == request.scope["endpoint"]
+            ]
+        else:
+            urls = []
+
+        template = urls[0].path if len(urls) > 0 else "UNKNOWN"
+        method_path = method + " " + template
+        return method_path
 
     async def dispatch(self, request, call_next):
         span_ctx = None
@@ -38,4 +56,8 @@ class StarletteTracingMiddleWare(BaseHTTPMiddleware):
             span.set_tag(tags.HTTP_URL, url)
 
             response = await call_next(request)
+
+            if self.use_template:
+                operation_name = self.get_template(request)
+                span.set_operation_name(operation_name)
         return response

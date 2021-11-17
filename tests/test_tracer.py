@@ -55,3 +55,39 @@ def test_tracer_with_extra_context():
     # Todo: more asserts; still not sure if we should have 3 finished spans in the external tracer
     spans = external_tracer.finished_spans()
     assert len(spans) == 1
+
+
+def test_tracer_uses_path_templates_for_operation_names():
+    app = Starlette()
+    mocked_tracer = MockTracer(scope_manager=ContextVarsScopeManager())
+    app.add_middleware(
+        StarletteTracingMiddleWare, tracer=mocked_tracer, use_template=True
+    )
+
+    @app.route("/foo/{foo_id}")
+    def foo(foo_id: str):
+        return PlainTextResponse(f"Foo: {foo_id}")
+
+    client = TestClient(app)
+    client.get("/foo/MyFoo")
+    spans = mocked_tracer.finished_spans()
+    assert len(spans) == 1
+    assert spans[0].operation_name == "GET /foo/{foo_id}"
+
+
+def test_tracer_uses_set_template_to_unknown_if_no_endpoint():
+    app = Starlette()
+    mocked_tracer = MockTracer(scope_manager=ContextVarsScopeManager())
+    app.add_middleware(
+        StarletteTracingMiddleWare, tracer=mocked_tracer, use_template=True
+    )
+
+    @app.route("/foo/{foo_id}")
+    def foo(foo_id: str):
+        return PlainTextResponse(f"Foo: {foo_id}")
+
+    client = TestClient(app)
+    client.get("/bar/MyFoo")
+    spans = mocked_tracer.finished_spans()
+    assert len(spans) == 1
+    assert spans[0].operation_name == "GET UNKNOWN"
